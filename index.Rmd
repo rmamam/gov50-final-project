@@ -12,3 +12,24 @@ output:
 ## Project thoughts
 
 I am interested in exploring data related to...
+
+Question: How does a lack of democracy impact a certain country’s death rates?
+If an African country has a lower average democracy then the country’s death rate will be higher because of corrupt killings. My explanatory variable is average government democracy. Average Government democracy seems to be measured from 0 through 10 which measures a country’s democracy based on the democracy index which is developed on 60 Indicators of 5 different categories. My Outcome Variable is Death PC which measures deaths per capita in a given country. Observed patterns in the data would provide support for my hypothesis are if there is if lower democracy scores on average had increased Death PC rates.  An observed pattern that would disprove my hypothesis is if the relationship between death rates and democracy scores is not inverse. 
+
+```{r}
+library(tidyverse)
+violence<- read_csv(file="violence.csv")
+ate_corruption <- violence |>
+  filter(africa == 1) |>
+  summarize(africa, corrupti, sftgname, agovdem80) |>
+ mutate(Democracy=  if_else( corrupti <= 5, 
+           "more_corrupt", "less_corrupt")) 
+ate_corruption
+
+corrupt_graph <- ate_corruption |>
+ggplot(mapping = aes( x = sftgname, y= corrupti)) +
+geom_col()
+
+corrupt_graph
+```
+
