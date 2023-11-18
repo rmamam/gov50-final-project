@@ -27,7 +27,7 @@ ate_corruption <- violence |>
 ate_corruption
 
 corrupt_graph <- ate_corruption |>
-ggplot(mapping = aes( x = de , y= corrupti)) +
+ggplot(mapping = aes( x = democ80 , y= corrupti)) +
 geom_col()
 
 corrupt_graph
