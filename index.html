@@ -1527,28 +1527,29 @@ If an African country has a lower average democracy then the country’s death r
 <span><span class='va'>violence</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span>file<span class='op'>=</span><span class='st'>"violence.csv"</span><span class='op'>)</span></span>
 <span><span class='va'>ate_corruption</span> <span class='op'>&lt;-</span> <span class='va'>violence</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>africa</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span><span class='va'>africa</span>, <span class='va'>corrupti</span>, <span class='va'>sftgname</span>, <span class='va'>agovdem80</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span><span class='va'>africa</span>, <span class='va'>corrupti</span>, <span class='va'>sftgname</span>, <span class='va'>agovdem80</span>, <span class='va'>assass80</span>, <span class='va'>code</span>, <span class='va'>deathsPC80</span>, <span class='va'>democ80</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>Democracy<span class='op'>=</span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span> <span class='va'>corrupti</span> <span class='op'>&lt;=</span> <span class='fl'>5</span>, </span>
 <span>           <span class='st'>"more_corrupt"</span>, <span class='st'>"less_corrupt"</span><span class='op'>)</span><span class='op'>)</span> </span>
 <span><span class='va'>ate_corruption</span></span></code></pre>
 </div>
-<pre><code># A tibble: 47 × 5
-   africa corrupti sftgname                 agovdem80 Democracy   
-    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;       
- 1      1     3    Angola                           0 more_corrupt
- 2      1    NA    Benin                            0 &lt;NA&gt;        
- 3      1     4    Burkina Faso                    NA more_corrupt
- 4      1     3.92 Botswana                         0 more_corrupt
- 5      1    NA    Burundi                          0 &lt;NA&gt;        
- 6      1     2.19 Cameroon                         0 more_corrupt
- 7      1    NA    Cape Verde                       0 &lt;NA&gt;        
- 8      1    NA    Central African Republic         0 &lt;NA&gt;        
- 9      1    NA    Chad                             0 &lt;NA&gt;        
-10      1    NA    Comoros                          0 &lt;NA&gt;        
-# ℹ 37 more rows</code></pre>
+<pre><code># A tibble: 47 × 9
+   africa corrupti sftgname        agovdem80 assass80 code  deathsPC80
+    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+ 1      1     3    Angola                  0        0 ANG            0
+ 2      1    NA    Benin                   0        0 BEN            0
+ 3      1     4    Burkina Faso           NA        0 BFO            0
+ 4      1     3.92 Botswana                0        0 BOT            0
+ 5      1    NA    Burundi                 0        0 BUI            0
+ 6      1     2.19 Cameroon                0        0 CAO            0
+ 7      1    NA    Cape Verde              0       NA CAP           NA
+ 8      1    NA    Central Africa…         0        0 CEN            0
+ 9      1    NA    Chad                    0        0 CHA            0
+10      1    NA    Comoros                 0       NA COM            0
+# ℹ 37 more rows
+# ℹ 2 more variables: democ80 &lt;dbl&gt;, Democracy &lt;chr&gt;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>corrupt_graph</span> <span class='op'>&lt;-</span> <span class='va'>ate_corruption</span> <span class='op'>|&gt;</span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='va'>sftgname</span>, y<span class='op'>=</span> <span class='va'>corrupti</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='va'>democ80</span> , y<span class='op'>=</span> <span class='va'>corrupti</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>corrupt_graph</span></span></code></pre>

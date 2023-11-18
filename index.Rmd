@@ -21,13 +21,13 @@ library(tidyverse)
 violence<- read_csv(file="violence.csv")
 ate_corruption <- violence |>
   filter(africa == 1) |>
-  summarize(africa, corrupti, sftgname, agovdem80) |>
+  summarize(africa, corrupti, sftgname, agovdem80, assass80, code, deathsPC80, democ80) |>
  mutate(Democracy=  if_else( corrupti <= 5, 
            "more_corrupt", "less_corrupt")) 
 ate_corruption
 
 corrupt_graph <- ate_corruption |>
-ggplot(mapping = aes( x = sftgname, y= corrupti)) +
+ggplot(mapping = aes( x = de , y= corrupti)) +
 geom_col()
 
 corrupt_graph
