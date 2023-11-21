@@ -48,5 +48,5 @@ knitr::kable(death_table,
              digits = 3) 
 ```
 
-
+This table represents the respective death rates for african countries that are democratic vs african countries that are authoritarian in the 70's. The death rate for countries that are authoritarian was significantly less than democraic countries. This could be because in "democratic" countries their is more accurate death reports of death rates due to more social freedom. 
 
