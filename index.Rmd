@@ -21,16 +21,32 @@ library(tidyverse)
 violence<- read_csv(file="violence.csv")
 ate_corruption <- violence |>
   filter(africa == 1) |>
-  summarize(africa, corrupti, sftgname, agovdem80, assass80, code, deathsPC80, democ80, deathsPC80) |>
- mutate(Democracy=  if_else( corrupti <= 5, 
-           "more_corrupt", "less_corrupt")) 
+  summarize(africa, corrupti, sftgname, agovdem80, assass80, code, deathsPC80, democ70, deathsPC70, na.rm=TRUE) |>
+ mutate(Corruption=  if_else( corrupti <= 5, 
+           "more_corrupt", "less_corrupt"),
+        Democracy= if_else(democ70 >= 5, "Democratic", "Authoritarian"))
 ate_corruption
 
 corrupt_graph <- ate_corruption |>
-ggplot(mapping = aes( x = democ80 , y= corrupti)) +
+ggplot(mapping = aes(x = democ70 , y = corrupti)) +
 geom_col()
 
 corrupt_graph
+
+death_table<-ate_corruption|>
+  group_by(Democracy)|>
+  summarise(Mean_death= mean(deathsPC70, na.rm=TRUE))|>
+  pivot_wider(names_from = Democracy,
+values_from = Mean_death) |>
+  mutate(ATE= `Authoritarian` - `Democratic`) 
+
+death_table |>
+  select(-"NA")
+
+knitr::kable(death_table, 
+             col.names = c("Democratic Death Rate", "Authoritarian Death Rate", "NA", "ATE"),
+             digits = 3) 
 ```
+
 
 
