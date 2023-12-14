@@ -1,7 +1,7 @@
 ---
 title: "Corruption, Democracy & Infant Mortality Rates"
 author: "Richie Mamam Nbiba"
-description: "Using R to describe the relationship between wealth disparities and mortality rates in regards of health care access."
+description: "Using R to describe the relationship between wealth disparities and mortality rates in regards to health care access."
 output:
   distill::distill_article:
     self_contained: false
@@ -13,14 +13,14 @@ output:
 
 Why are babies in some countries more likely to die than in other countries? 
 
-Disparities in infant mortality rates across countries often reflect a complex interplay of factors, including differing levels of democracy and corruption. In nations characterized by robust democratic institutions and low corruption levels, there tends to be better access to quality healthcare, comprehensive maternal and child health programs, and socio-economic conditions conducive to infant well-being. These countries often experience lower infant mortality rates, as political stability, effective governance, and reduced corruption contribute to the implementation of sound public health policies. Citizens in democratically governed nations may enjoy improved access to healthcare services, prenatal and neonatal care, and nutritional support, ultimately mitigating the risk of infant mortality.
+Disparities in infant mortality rates across countries often reflect a complex interplay of factors, including differing levels of democracy and corruption. In nations characterized by robust democratic institutions and low corruption levels, there tends to be better access to quality healthcare, comprehensive maternal and child health programs, and sociology-economic conditions conducive to infant well-being. These countries often experience lower infant mortality rates, as political stability, effective governance, and reduced corruption contribute to the implementation of sound public health policies. Citizens in democratically governed nations may enjoy improved access to healthcare services, prenatal and neonatal care, and nutritional support, ultimately mitigating the risk of infant mortality.
 
 Conversely, in countries grappling with lower levels of democracy and higher corruption, there are disparities in access to healthcare infrastructure and resources are diverted away from essential services, exacerbating challenges related to infant health. Lack of transparency and accountability in such settings may hinder the effective distribution of resources and implementation of vital health programs. Additionally, political instability associated with lower levels of democracy can contribute to inadequate healthcare systems and impede progress in addressing infant mortality. Therefore, understanding and addressing the intersections of democracy, corruption, and infant mortality is crucial for designing targeted interventions that address the root causes of health disparities on a global scale.
 
 I intend to provide concrete proof of the aforementioned disparities to call attention to the dire nature of the situation. 
 
 
-My Reaserch explores the following questions: 
+My analysis explores the following questions: 
 
 What does Corruption look like across  Counties? 
 
@@ -29,7 +29,7 @@ What is the relationship between corruption and freedom in  countries?
 How does this impact the safety of citizens in the country measured by average infant mortality rates?
 
 ## Hypothesis 
-I hypothesize that regardless of Democracy scores countries with corruption closer to 0 will have higher  higher infant mortality rates. 
+I hypothesize that regardless of Democracy scores, countries with corruption closer to 0 will have higher infant mortality rates. 
 
 
 ```{r}
@@ -46,9 +46,9 @@ kk_corruption
 ```
 
 ## Data
-My explanatory variable is average corruption as measured by my corrupti data using the Knack and Keefer measure of corruption which is a composite index that combines data from several sources to assess the level of corruption in a country. It is based on the work of Stephen Knack and Philip Keeper, who published their findings in a 1995 paper titled "Institutions and Economic Performance: A Cross-Country Test Using Alternative Institutional Measures."
+My explanatory variable is average corruption as measured by my corrupt data using the Knack and Reefer measure of corruption which is a composite index that combines data from several sources to assess the level of corruption in a country. It is based on the work of Stephen Knack and Philip Keeper, who published their findings in a 1995 paper titled "Institutions and Economic Performance: A Cross-Country Test Using Alternative Institutional Measures."
 
-The Knack and Keefer measure of corruption is made up of three components:
+The Knack and Reefer measure of corruption is made up of three components:
 
 Corruption in Government: This component measures the extent to which public officials engage in corrupt activities, such as bribery, embezzlement, and extortion.
 Rule of Law: This component measures the extent to which the law is applied fairly and consistently, and the extent to which contracts are enforced.
@@ -60,13 +60,13 @@ High corruption: Scores of 0 to 2.
 Moderate corruption: Scores of 3 to 4.
 Low corruption: Scores of 5 to 6.
 
-I will be comparing corruption data to democarcy data which is measured by Raymond Gastill's freedom in the word scale: 
+I will be comparing corruption data to democracy data which is measured by Raymond Gastill's freedom in the word scale: 
 Political Rights: This assesses the degree to which individuals can participate freely in the political process. It includes aspects like freedom of expression, association, and assembly; and the right to vote in fair and free elections.
 Civil Liberties: This assesses the degree to which individuals can enjoy basic individual rights and freedoms. It includes aspects like freedom of the press, religion, and movement; and protection from arbitrary arrest and detention.
 
 Based on their scores, countries are categorized as "Free" (scores 1.0-2.5), "Partly Free" (3.0-5.0), and "Not Free" (5.5-7.0).
 
-My Outcome Variable is wdiinfmt70 which measures infant deaths per million people in a given country. Observed patterns in the data would provide support for my hypothesis are if there is if lower or "high corruption" corruption scores were associated with lower or "free" democracyscores and lower death rates.
+My Outcome Variable is wdiinfmt70 which measures infant deaths per million people in a given country. Observed patterns in the data would provide support for my hypothesis are if there is if lower or "high corruption" corruption scores were associated with lower or "free" democracy scores and lower death rates.
 
 ##Visualisation
 
@@ -80,7 +80,7 @@ Corruption_Democracy<- kk_corruption|>
 print(Corruption_Democracy)
 
 ```
-The plot shows that the negative relationship between corruption and democracy. This means that the decrease in democracy associated with each unit increase in corruption is relatively constant. Countries with higher levels of corruption tend to have a score closer to 7 on the dfreedom scale indicatingh lower levels of democracy. Countries with high corruption had a mean score near 5 as well as countries with moderate corruption. On the other hand countries with low corruption had a mean democracy score closer to 2.5. 
+The plot shows that the negative relationship between corruption and democracy. This means that the decrease in democracy associated with each unit increase in corruption is relatively constant. Countries with higher levels of corruption tend to have a score closer to 7 on the freedom scale indicating lower levels of democracy. Countries with high corruption had a mean score near 5 as well as countries with moderate corruption. On the other hand countries with low corruption had a mean democracy score closer to 2.5. 
 
 ## Results Section 
 
@@ -114,7 +114,7 @@ There are a number of possible explanations for the relationship between corrupt
 
 Another possibility is that corruption can lead to an increase in inequality, which can also contribute to infant mortality. When there is high levels of corruption, the wealthy and powerful may have preferential access to resources and services, while the poor and marginalized may be left behind. This can lead to disparities in health outcomes, including infant mortality.
 
-Additionally looking the table there is a clear relatiobship between mortality and democracy as well; the highest infant mortality rates are associated with not free counreiws while the lowest are associated with free countries. 
+Additionally looking the table there is a clear relationship between mortality and democracy as well; the highest infant mortality rates are associated with not free counterfeits while the lowest are associated with free countries. 
 
 ## Regression and Analysis 
 
@@ -125,7 +125,7 @@ modelsummary::modelsummary(fit_mortality_70s,
   "p = {p.value}"),
   gof_map = c("nobs", "r.squared", "adj.r.squared"))
 ```
-According to the regression, the slope for the explanatory variable is -19.577. This suggests that for every additional point on the average corruption score, the mean infant mortality decreases by about 19.577. The p-value for the slope is smaller than 0.001, which is smaller than the significance level 0.05. This indicates that the slope is statistically significant, and we can reject the null hypothesis that the slope is 0. Therefore adopting the hypothesis that the slope is less than 0, so there is a negative correlation between inflation and approval rating.However we still cannot conclude a causal relationship because there are other confounders that could impact the infant mortality rates.
+According to the regression, the slope for the explanatory variable is -19.577. This suggests that for every additional point on the average corruption score, the mean infant mortality decreases by about 19.577. The p-value for the slope is smaller than 0.001, which is smaller than the significance level 0.05. This indicates that the slope is statistically significant, and we can reject the null hypothesis that the slope is 0. Therefore adopting the hypothesis that the slope is less than 0, so there is a negative correlation between inflation and approval rating.However we still cannot conclude a causal relationship because there are other con founders that could impact the infant mortality rates.
 
 
 
