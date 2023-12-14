@@ -1,5 +1,5 @@
 ---
-title: "Gov 50 Final Project"
+title: "Corruption, Democracy & Infant Mortality Rates"
 author: "Richie Mamam Nbiba"
 description: "Using R to describe the relationship between wealth disparities and mortality rates in regards of health care access."
 output:
@@ -9,44 +9,125 @@ output:
 
 
 
-## Project thoughts
+## Introduction
 
-I am interested in exploring data related to...
+Why are babies in some countries more likely to die than in other countries? 
 
-Question: How does a lack of democracy impact a certain country’s death rates?
-If an African country has a lower average democracy then the country’s death rate will be higher because of corrupt killings. My explanatory variable is average government democracy. Average Government democracy seems to be measured from 0 through 10 which measures a country’s democracy based on the democracy index which is developed on 60 Indicators of 5 different categories. My Outcome Variable is Death PC which measures deaths per capita in a given country. Observed patterns in the data would provide support for my hypothesis are if there is if lower democracy scores on average had increased Death PC rates.  An observed pattern that would disprove my hypothesis is if the relationship between death rates and democracy scores is not inverse. 
+Disparities in infant mortality rates across countries often reflect a complex interplay of factors, including differing levels of democracy and corruption. In nations characterized by robust democratic institutions and low corruption levels, there tends to be better access to quality healthcare, comprehensive maternal and child health programs, and socio-economic conditions conducive to infant well-being. These countries often experience lower infant mortality rates, as political stability, effective governance, and reduced corruption contribute to the implementation of sound public health policies. Citizens in democratically governed nations may enjoy improved access to healthcare services, prenatal and neonatal care, and nutritional support, ultimately mitigating the risk of infant mortality.
+
+Conversely, in countries grappling with lower levels of democracy and higher corruption, there are disparities in access to healthcare infrastructure and resources are diverted away from essential services, exacerbating challenges related to infant health. Lack of transparency and accountability in such settings may hinder the effective distribution of resources and implementation of vital health programs. Additionally, political instability associated with lower levels of democracy can contribute to inadequate healthcare systems and impede progress in addressing infant mortality. Therefore, understanding and addressing the intersections of democracy, corruption, and infant mortality is crucial for designing targeted interventions that address the root causes of health disparities on a global scale.
+
+I intend to provide concrete proof of the aforementioned disparities to call attention to the dire nature of the situation. 
+
+
+My Reaserch explores the following questions: 
+
+What does Corruption look like across  Counties? 
+
+What is the relationship between corruption and freedom in  countries?
+
+How does this impact the safety of citizens in the country measured by average infant mortality rates?
+
+## Hypothesis 
+I hypothesize that regardless of Democracy scores countries with corruption closer to 0 will have higher  higher infant mortality rates. 
+
 
 ```{r}
 library(tidyverse)
 violence<- read_csv(file="violence.csv")
-ate_corruption <- violence |>
-  filter(africa == 1) |>
-  summarize(africa, corrupti, sftgname, agovdem80, assass80, code, deathsPC80, democ70, deathsPC70, na.rm=TRUE) |>
- mutate(Corruption=  if_else( corrupti <= 5, 
-           "more_corrupt", "less_corrupt"),
-        Democracy= if_else(democ70 >= 5, "Democratic", "Authoritarian"))
-ate_corruption
+kk_corruption <- violence |>
+  summarize(africa, sftgname, corrupti, democ70, deathsPC70, wdiinfmt70, na.rm=TRUE) |>
+ 
+  mutate( Corruption =  if_else(corrupti <= 2, "high_corruption", if_else(corrupti>2 & corrupti<= 4, "moderate_corruption", "low_corruption")),
+         Democracy= if_else(democ70 <= 2.5, "free", if_else( democ70> 2.5 & democ70<= 5.5, "partly_free", "Not Free")))
+        
+kk_corruption
 
-corrupt_graph <- ate_corruption |>
-ggplot(mapping = aes(x = democ70 , y = corrupti)) +
-geom_col()
+```
 
-corrupt_graph
+## Data
+My explanatory variable is average corruption as measured by my corrupti data using the Knack and Keefer measure of corruption which is a composite index that combines data from several sources to assess the level of corruption in a country. It is based on the work of Stephen Knack and Philip Keeper, who published their findings in a 1995 paper titled "Institutions and Economic Performance: A Cross-Country Test Using Alternative Institutional Measures."
 
-death_table<-ate_corruption|>
+The Knack and Keefer measure of corruption is made up of three components:
+
+Corruption in Government: This component measures the extent to which public officials engage in corrupt activities, such as bribery, embezzlement, and extortion.
+Rule of Law: This component measures the extent to which the law is applied fairly and consistently, and the extent to which contracts are enforced.
+Expropriation Risk: This component measures the risk that the government will seize private property without compensation.
+
+The index ranges from 0 to 6. A higher score on the index indicates a lower level of corruption. The scale is divided into three categories:
+
+High corruption: Scores of 0 to 2.
+Moderate corruption: Scores of 3 to 4.
+Low corruption: Scores of 5 to 6.
+
+I will be comparing corruption data to democarcy data which is measured by Raymond Gastill's freedom in the word scale: 
+Political Rights: This assesses the degree to which individuals can participate freely in the political process. It includes aspects like freedom of expression, association, and assembly; and the right to vote in fair and free elections.
+Civil Liberties: This assesses the degree to which individuals can enjoy basic individual rights and freedoms. It includes aspects like freedom of the press, religion, and movement; and protection from arbitrary arrest and detention.
+
+Based on their scores, countries are categorized as "Free" (scores 1.0-2.5), "Partly Free" (3.0-5.0), and "Not Free" (5.5-7.0).
+
+My Outcome Variable is wdiinfmt70 which measures infant deaths per million people in a given country. Observed patterns in the data would provide support for my hypothesis are if there is if lower or "high corruption" corruption scores were associated with lower or "free" democracyscores and lower death rates.
+
+##Visualisation
+
+```{r}
+Corruption_Democracy<- kk_corruption|>
+  group_by(Corruption)|>
+  summarise(mean_democ = mean(democ70, na.rm= TRUE))|>
+  ggplot(mapping= aes(x= Corruption, y= mean_democ))+
+  geom_col() +
+  labs(x= "Corruption", Y= "Mean Democracy")
+print(Corruption_Democracy)
+
+```
+The plot shows that the negative relationship between corruption and democracy is approximately linear. This means that the decrease in democracy associated with each unit increase in corruption is relatively constant. Countries with higher levels of corruption tend to have lower levels of democracy.
+
+## Results Section 
+
+```{r}
+
+##World Wide Infant Mortality 
+corrupt_infant_mortality<-violence |>
+  ggplot(mapping= aes(x=corrupti, y= wdiinfmt70))+
+   geom_point()+ 
+  labs(x= "Corruption Score", 
+       Y= "Avergae Infant Mortality per 1000 People",
+       Title= "Comparing Corruption and Infant Mortality")+ 
+ geom_smooth(method = "lm", se = FALSE)
+corrupt_infant_mortality
+
+death_table<-kk_corruption|>
   group_by(Democracy)|>
-  summarise(Mean_death= mean(deathsPC70, na.rm=TRUE))|>
+  summarise(Mean_infant_mortality= mean(wdiinfmt70, na.rm=TRUE))|>
   pivot_wider(names_from = Democracy,
-values_from = Mean_death) |>
-  mutate(ATE= `Authoritarian` - `Democratic`) 
+values_from = Mean_infant_mortality) 
 
 death_table |>
   select(-"NA")
 
 knitr::kable(death_table, 
-             col.names = c("Democratic Death Rate", "Authoritarian Death Rate", "NA", "ATE"),
-             digits = 3) 
+             col.names = c("Non-Democartic Infant Mortality Rate", "Democartic Infant Mortality Rate", "Partly Deemocratic Infant Mortality Rate", "na"), digits = 3) 
 ```
+The plot shows a negative correlation between corruption and infant mortality, meaning that countries with higher levels of corruption tend to have higher levels of infant mortality. The fitted line shows that this relationship is approximately linear, meaning that the increase in infant mortality associated with each unit increase in corruption is relatively constant.
 
-This table represents the respective death rates for african countries that are democratic vs african countries that are authoritarian in the 70's. The death rate for countries that are authoritarian was significantly less than democraic countries. This could be because in "democratic" countries their is more accurate death reports of death rates due to more social freedom. 
+There are a number of possible explanations for the relationship between corruption and infant mortality. One possibility is that corruption can lead to a decrease in the quality of public services, such as healthcare and education. This can make it more difficult for people to access the resources they need to stay healthy and prevent infant mortality.
+
+Another possibility is that corruption can lead to an increase in inequality, which can also contribute to infant mortality. When there is high levels of corruption, the wealthy and powerful may have preferential access to resources and services, while the poor and marginalized may be left behind. This can lead to disparities in health outcomes, including infant mortality.
+
+Additionally looking the table there is a clear relatiobship between mortality and democracy as well; the highest infant mortality rates are associated with not free counreiws while the lowest are associated with free countries. 
+
+## Regression and Analysis 
+
+```{r}
+fit_mortality_70s <- lm(wdiinfmt70 ~ corrupti, data= kk_corruption)
+modelsummary::modelsummary(fit_mortality_70s,
+  statistic = c("s.e. = {std.error}",
+  "p = {p.value}"),
+  gof_map = c("nobs", "r.squared", "adj.r.squared"))
+```
+According to the regression, the slope for the explanatory variable is -19.577. This suggests that for every additional point on the average corruption score, the mean infant mortality decreases by about 19.577. The p-value for the slope is smaller than 0.001, which is smaller than the significance level 0.05. This indicates that the slope is statistically significant, and we can reject the null hypothesis that the slope is 0. Therefore adopting the hypothesis that the slope is less than 0, so there is a negative correlation between inflation and approval rating.However we still cannot conclude a causal relationship because there are other confounders that could impact the infant mortality rates.
+
+
+## Conclusion 
+
 
