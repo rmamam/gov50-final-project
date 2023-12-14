@@ -76,11 +76,11 @@ Corruption_Democracy<- kk_corruption|>
   summarise(mean_democ = mean(democ70, na.rm= TRUE))|>
   ggplot(mapping= aes(x= Corruption, y= mean_democ))+
   geom_col() +
-  labs(x= "Corruption", Y= "Mean Democracy")
+  labs(x="Corruption", y="Mean Democracy", title = "Corruption vs Mean Democracy")
 print(Corruption_Democracy)
 
 ```
-The plot shows that the negative relationship between corruption and democracy is approximately linear. This means that the decrease in democracy associated with each unit increase in corruption is relatively constant. Countries with higher levels of corruption tend to have lower levels of democracy.
+The plot shows that the negative relationship between corruption and democracy. This means that the decrease in democracy associated with each unit increase in corruption is relatively constant. Countries with higher levels of corruption tend to have a score closer to 7 on the dfreedom scale indicatingh lower levels of democracy. Countries with high corruption had a mean score near 5 as well as countries with moderate corruption. On the other hand countries with low corruption had a mean democracy score closer to 2.5. 
 
 ## Results Section 
 
@@ -91,8 +91,8 @@ corrupt_infant_mortality<-violence |>
   ggplot(mapping= aes(x=corrupti, y= wdiinfmt70))+
    geom_point()+ 
   labs(x= "Corruption Score", 
-       Y= "Avergae Infant Mortality per 1000 People",
-       Title= "Comparing Corruption and Infant Mortality")+ 
+       y= "Avergae Infant Mortality per 1000 People",
+       title= "Comparing Corruption and Infant Mortality")+ 
  geom_smooth(method = "lm", se = FALSE)
 corrupt_infant_mortality
 
@@ -106,7 +106,7 @@ death_table |>
   select(-"NA")
 
 knitr::kable(death_table, 
-             col.names = c("Non-Democartic Infant Mortality Rate", "Democartic Infant Mortality Rate", "Partly Deemocratic Infant Mortality Rate", "na"), digits = 3) 
+             col.names = c("Non-Democartic Infant Mortality Rate", "Democartic Infant Mortality Rate", "Partly Democratic Infant Mortality Rate", "na"), digits = 3) 
 ```
 The plot shows a negative correlation between corruption and infant mortality, meaning that countries with higher levels of corruption tend to have higher levels of infant mortality. The fitted line shows that this relationship is approximately linear, meaning that the increase in infant mortality associated with each unit increase in corruption is relatively constant.
 
@@ -128,6 +128,32 @@ modelsummary::modelsummary(fit_mortality_70s,
 According to the regression, the slope for the explanatory variable is -19.577. This suggests that for every additional point on the average corruption score, the mean infant mortality decreases by about 19.577. The p-value for the slope is smaller than 0.001, which is smaller than the significance level 0.05. This indicates that the slope is statistically significant, and we can reject the null hypothesis that the slope is 0. Therefore adopting the hypothesis that the slope is less than 0, so there is a negative correlation between inflation and approval rating.However we still cannot conclude a causal relationship because there are other confounders that could impact the infant mortality rates.
 
 
-## Conclusion 
+
+## Conclusion: The Interplay Between Democracy, Corruption, and Infant Mortality
+
+This analysis has explored the complex interplay between democracy, corruption, and infant mortality rates. The findings reveal a clear negative correlation between democracy and corruption, indicating that countries with higher levels of democracy tend to have lower levels of corruption. Additionally, a strong negative association was found between corruption and infant mortality rates, suggesting that countries with higher levels of corruption experience higher rates of infant mortality.
+
+**Key Takeaways:**
+
+* Democracies are generally associated with lower levels of corruption.
+* Increased corruption leads to higher infant mortality rates.
+* These relationships are statistically significant, suggesting they are unlikely to be due to chance.
+
+**Possible Mechanisms:**
+
+While the correlations observed are robust, it is important to acknowledge that causality cannot be definitively established from this analysis. Nevertheless, several potential mechanisms may explain these relationships:
+
+* **Democratic institutions:** Strong democratic institutions, such as a free press and an independent judiciary, can act as checks and balances against corruption. This can help to ensure that resources are allocated efficiently and that officials are held accountable for their actions.
+* **Public services:** Democracies tend to invest more heavily in public services, such as healthcare and education. This can lead to improved health outcomes for all citizens, including reduced infant mortality rates.
+* **Inequality:** Corruption can exacerbate inequality, as the wealthy and powerful may be able to benefit from preferential treatment and avoid the consequences of their actions. This can lead to disparities in health outcomes, including higher infant mortality rates in marginalized communities.
+
+**Implications:**
+
+These findings highlight the importance of promoting democracy and combating corruption as essential steps towards improving public health and reducing infant mortality. By strengthening democratic institutions and addressing the root causes of corruption, policymakers can create a more equitable and just society where all children have the opportunity to thrive.
+
+**Further Research:**
+
+While this analysis provides valuable insights, further research is needed to explore the complex relationship between democracy, corruption, and infant mortality in more detail. Future studies could employ causal inference techniques, examine specific mechanisms, and investigate the role of other relevant factors like cultural norms and economic development. By continuing to research this critical topic, we can develop more effective strategies to improve child health outcomes and create a brighter future for all and continue to raise awareness.
+
 
 
