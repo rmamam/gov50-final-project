@@ -1581,12 +1581,12 @@ Civil Liberties: This assesses the degree to which individuals can enjoy basic i
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>mean_democ <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>democ70</span>, na.rm<span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span><span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping<span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>Corruption</span>, y<span class='op'>=</span> <span class='va'>mean_democ</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
-<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x<span class='op'>=</span> <span class='st'>"Corruption"</span>, Y<span class='op'>=</span> <span class='st'>"Mean Democracy"</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='st'>"Corruption"</span>, y<span class='op'>=</span><span class='st'>"Mean Democracy"</span>, title <span class='op'>=</span> <span class='st'>"Corruption vs Mean Democracy"</span><span class='op'>)</span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>Corruption_Democracy</span><span class='op'>)</span></span></code></pre>
 </div>
 <p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
-<p>The plot shows that the negative relationship between corruption and democracy is approximately linear. This means that the decrease in democracy associated with each unit increase in corruption is relatively constant. Countries with higher levels of corruption tend to have lower levels of democracy.</p>
+<p>The plot shows that the negative relationship between corruption and democracy. This means that the decrease in democracy associated with each unit increase in corruption is relatively constant. Countries with higher levels of corruption tend to have a score closer to 7 on the dfreedom scale indicatingh lower levels of democracy. Countries with high corruption had a mean score near 5 as well as countries with moderate corruption. On the other hand countries with low corruption had a mean democracy score closer to 2.5.</p>
 <h2 id="results-section">Results Section</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1595,8 +1595,8 @@ Civil Liberties: This assesses the degree to which individuals can enjoy basic i
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>mapping<span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>corrupti</span>, y<span class='op'>=</span> <span class='va'>wdiinfmt70</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span></span>
 <span>   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x<span class='op'>=</span> <span class='st'>"Corruption Score"</span>, </span>
-<span>       Y<span class='op'>=</span> <span class='st'>"Avergae Infant Mortality per 1000 People"</span>,</span>
-<span>       Title<span class='op'>=</span> <span class='st'>"Comparing Corruption and Infant Mortality"</span><span class='op'>)</span><span class='op'>+</span> </span>
+<span>       y<span class='op'>=</span> <span class='st'>"Avergae Infant Mortality per 1000 People"</span>,</span>
+<span>       title<span class='op'>=</span> <span class='st'>"Comparing Corruption and Infant Mortality"</span><span class='op'>)</span><span class='op'>+</span> </span>
 <span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
 <span><span class='va'>corrupt_infant_mortality</span></span></code></pre>
 </div>
@@ -1617,12 +1617,12 @@ Civil Liberties: This assesses the degree to which individuals can enjoy basic i
 1       112.  38.0        101.</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>death_table</span>, </span>
-<span>             col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Non-Democartic Infant Mortality Rate"</span>, <span class='st'>"Democartic Infant Mortality Rate"</span>, <span class='st'>"Partly Deemocratic Infant Mortality Rate"</span>, <span class='st'>"na"</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> </span></code></pre>
+<span>             col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Non-Democartic Infant Mortality Rate"</span>, <span class='st'>"Democartic Infant Mortality Rate"</span>, <span class='st'>"Partly Democratic Infant Mortality Rate"</span>, <span class='st'>"na"</span><span class='op'>)</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span> </span></code></pre>
 </div>
-<table style="width:100%;">
+<table>
 <colgroup>
 <col style="width: 31%" />
-<col style="width: 27%" />
+<col style="width: 28%" />
 <col style="width: 34%" />
 <col style="width: 5%" />
 </colgroup>
@@ -1630,7 +1630,7 @@ Civil Liberties: This assesses the degree to which individuals can enjoy basic i
 <tr class="header">
 <th style="text-align: right;">Non-Democartic Infant Mortality Rate</th>
 <th style="text-align: right;">Democartic Infant Mortality Rate</th>
-<th style="text-align: right;">Partly Deemocratic Infant Mortality Rate</th>
+<th style="text-align: right;">Partly Democratic Infant Mortality Rate</th>
 <th style="text-align: right;">na</th>
 </tr>
 </thead>
